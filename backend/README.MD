@@ -20,7 +20,7 @@ Ce projet est une API RESTful construite avec **Node.js**, **Express**, **Sequel
    Clone le repo :
 
 ```bash
-git clone https://github.com/ton-utilisateur/mon-projet-api.git
+git clone git@github.com:Mamaju97401/API_REST.git
 cd mon-projet-api
 ```
 
@@ -83,7 +83,7 @@ Le serveur tourne par défaut sur :
 
 ## 🧑‍💼 Auteur
 
-> Ce projet a été développé par [Ton Nom / Pseudo] dans le cadre de la construction de mon portfolio en tant que développeur backend Node.js débutant.
+> Ce projet a été développé par BOUGET Mathieu / MAMAju97401 dans le cadre de la construction de mon portfolio en tant que développeur backend Node.js débutant.
 
 ## 💬 Licence
 
