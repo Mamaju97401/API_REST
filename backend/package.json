@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0"
+  },
+  "name": "api_rest",
+  "version": "1.0.0",
+  "description": "Ce projet est une API RESTful construite avec **Node.js**, **Express**, **Sequelize**, et **PostgreSQL**. Elle sert de base pour des applications backend scalables avec gestion de base de données relationnelle.",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Mamaju97401/API_REST.git"
+  },
+  "author": "MAMAju97401",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mamaju97401/API_REST/issues"
+  },
+  "homepage": "https://github.com/Mamaju97401/API_REST#readme"
+}
