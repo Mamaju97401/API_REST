@@ -1,90 +1,121 @@
-# 🛠️ API REST - Node.js + Express + Sequelize + PostgreSQL
+# 🛠️ API REST - Node.js + Express + PostgreSQL
 
-Ce projet est une API RESTful construite avec **Node.js**, **Express**, **Sequelize**, et **PostgreSQL**. Elle sert de base pour des applications backend scalables avec gestion de base de données relationnelle.
+API RESTful de gestion de **projets**, **tâches**, **commentaires** et **pièces jointes**, construite avec **Node.js**, **Express** et **PostgreSQL**.
+
+La base de données est gérée avec des **scripts SQL écrits à la main** (pas d'ORM pour le moment).
+
+> 🚧 Projet en cours de construction : le serveur Express démarre, mais aucune route n'est encore disponible.
 
 ## 📁 Structure du projet
 
-## mon-projet-api
+```text
+API_REST/
+└── backend/
+    ├── app/
+    │   ├── database.js        # Connexion à PostgreSQL (à écrire)
+    │   └── router.js          # Définition des routes (à écrire)
+    ├── data/
+    │   └── create_table.sql   # Script de création des tables
+    ├── index.js               # Point d'entrée : démarre le serveur Express
+    ├── package.json
+    └── README.MD
+```
 
-├── config/             # Configuration Sequelize  
-├── migrations/         # Fichiers de migration Sequelize  
-├── models/             # Modèles de données Sequelize  
-├── seeders/            # Données de test (facultatif)  
-├── node_modules/  
-├── index.js            # Point d'entrée principal de l'application  
-├── package.json  
-└── README.md  
+## 🗄️ Modèle de données
+
+| Table        | Rôle                                         | Liée à                    |
+|--------------|----------------------------------------------|---------------------------|
+| `user`       | Utilisateurs (rôle `user` ou `admin`)        | —                         |
+| `project`    | Projets créés par un utilisateur             | `user`                    |
+| `task`       | Tâches d'un projet, assignables à un user    | `project`, `user`         |
+| `comment`    | Commentaires sur une tâche (avec réponses)   | `task`, `user`, `comment` |
+| `attachment` | Fichiers joints à un commentaire             | `comment`, `task`, `user` |
+
+## ✅ Prérequis
+
+- [Node.js](https://nodejs.org/) 22 ou plus récent (pour `node --watch`)
+- [PostgreSQL](https://www.postgresql.org/) installé, avec l'outil en ligne de commande `psql`
 
 ## 🚀 Installation
 
-   Clone le repo :
+1. Cloner le dépôt et aller dans le dossier `backend` :
 
-```bash
-git clone git@github.com:Mamaju97401/API_REST.git
-cd mon-projet-api
-```
+   ```bash
+   git clone git@github.com:Mamaju97401/API_REST.git
+   cd API_REST/backend
+   ```
 
-   Installe les dépendances :
-```bash
-npm install
-```
+2. Installer les dépendances :
 
-   Crée un fichier `.env` (optionnel si tu veux une config séparée) ou configure `config/config.json` avec tes infos PostgreSQL :
-```json
-{
-  "development": {
-    "username": "postgres",
-    "password": "mot_de_passe",
-    "database": "nom_de_la_base",
-    "host": "127.0.0.1",
-    "dialect": "postgres"
-  }
-}
-```
+   ```bash
+   npm install
+   ```
 
-1. Initialise la base de données :
-```bash
-npx sequelize-cli db:migrate
-```
+3. Créer un fichier `.env` dans `backend/` :
+
+   ```env
+   PORT=3000
+   ```
+
+## 🗃️ Base de données
+
+1. Créer la base (ici nommée `api_rest`) :
+
+   ```bash
+   createdb api_rest
+   ```
+
+2. Créer les tables avec le script SQL :
+
+   ```bash
+   psql -d api_rest -f data/create_table.sql
+   ```
+
+> ⚠️ Le script `create_table.sql` est en cours de correction pour être compatible avec PostgreSQL.
 
 ## 🧑‍💻 Lancement du serveur
 
 ```bash
-node index.js
+npm run dev    # développement, redémarre à chaque modification (`node --watch`)
+npm start      # lancement simple
 ```
 
-Le serveur tourne par défaut sur :  
-📍 `http://localhost:3000`
+Le serveur tourne par défaut sur 📍 `http://localhost:3000` (modifiable avec `PORT` dans `.env`).
 
-## 🔌 Endpoints disponibles (exemple `User`)
+## 🔌 Endpoints
 
-| Méthode | Route               | Description               |
-|--------:|--------------------|---------------------------|
-| GET     | `/api/users`       | Liste des utilisateurs    |
-| GET     | `/api/users/:id`   | Détail d'un utilisateur   |
-| POST    | `/api/users`       | Créer un utilisateur      |
-| PUT     | `/api/users/:id`   | Modifier un utilisateur   |
-| DELETE  | `/api/users/:id`   | Supprimer un utilisateur  |
+Aucun endpoint n'est encore disponible. Prévu pour la ressource `user` :
+
+| Méthode | Route            | Description              |
+|--------:|------------------|--------------------------|
+| GET     | `/api/users`     | Liste des utilisateurs   |
+| GET     | `/api/users/:id` | Détail d'un utilisateur  |
+| POST    | `/api/users`     | Créer un utilisateur     |
+| PUT     | `/api/users/:id` | Modifier un utilisateur  |
+| DELETE  | `/api/users/:id` | Supprimer un utilisateur |
+
+Les ressources `project`, `task`, `comment` et `attachment` suivront le même modèle.
 
 ## 🧱 Stack utilisée
 
 - [Node.js](https://nodejs.org/)
-- [Express.js](https://expressjs.com/)
-- [Sequelize](https://sequelize.org/)
-- [PostgreSQL](https://www.postgresql.org/)
-- [Sequelize CLI](https://sequelize.org/docs/v6/other-topics/migrations/)
+- [Express 5](https://expressjs.com/)
+- [PostgreSQL](https://www.postgresql.org/) avec des scripts SQL écrits à la main
+- [dotenv](https://github.com/motdotla/dotenv) pour les variables d'environnement
 
 ## 📌 TODO / Évolution
 
-- [ ] Ajouter authentification JWT
-- [ ] Ajouter modèles `Task`, `Project`, etc.
-- [ ] Ajouter des tests (Jest, Supertest)
-- [ ] Mise en production (Heroku, Render...)
+- [ ] Corriger `create_table.sql` pour PostgreSQL
+- [ ] Connexion à la base dans `app/database.js`
+- [ ] Routes et contrôleurs CRUD (`user`, `project`, `task`, `comment`, `attachment`)
+- [ ] Authentification JWT et mots de passe hashés (bcrypt)
+- [ ] Tests (Jest, Supertest)
+- [ ] Mise en production (Render, Railway...)
 
 ## 🧑‍💼 Auteur
 
-> Ce projet a été développé par BOUGET Mathieu / MAMAju97401 dans le cadre de la construction de mon portfolio en tant que développeur backend Node.js débutant.
+> Projet développé par BOUGET Mathieu / MAMAju97401 dans le cadre de la construction de mon portfolio en tant que développeur backend Node.js débutant.
 
 ## 💬 Licence
 
-Ce projet est open-source — tu peux l'utiliser, le modifier et le partager librement.
+Ce projet est sous licence ISC : tu peux l'utiliser, le modifier et le partager librement.

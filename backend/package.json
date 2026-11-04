@@ -1,15 +1,16 @@
 {
-  "dependencies": {
-    "dotenv": "^16.4.7",
-    "express": "^5.1.0",
-    "nodemon": "^3.1.9"
-  },
   "name": "api_rest",
   "version": "1.0.0",
-  "description": "Ce projet est une API RESTful construite avec **Node.js**, **Express**, **Sequelize**, et **PostgreSQL**. Elle sert de base pour des applications backend scalables avec gestion de base de données relationnelle.",
+  "description": "API REST de gestion de projets, tâches et commentaires construite avec Node.js, Express et PostgreSQL (scripts SQL écrits à la main).",
   "main": "index.js",
   "scripts": {
+    "start": "node index.js",
+    "dev": "node --watch index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^5.1.0"
   },
   "repository": {
     "type": "git",
