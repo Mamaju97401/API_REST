@@ -29,7 +29,7 @@ API_REST/
 | `project`    | Projets créés par un utilisateur             | `user`                    |
 | `task`       | Tâches d'un projet, assignables à un user    | `project`, `user`         |
 | `comment`    | Commentaires sur une tâche (avec réponses)   | `task`, `user`, `comment` |
-| `attachment` | Fichiers joints à un commentaire             | `comment`, `task`, `user` |
+| `attachment` | Fichiers joints à un commentaire             | `comment`, `user`         |
 
 ## ✅ Prérequis
 
@@ -71,7 +71,7 @@ API_REST/
    psql -d api_rest -f data/create_table.sql
    ```
 
-> ⚠️ Le script `create_table.sql` est en cours de correction pour être compatible avec PostgreSQL.
+> ⚠️ Le script supprime puis recrée toutes les tables : relancé, il efface les données existantes. À n'utiliser qu'en développement.
 
 ## 🧑‍💻 Lancement du serveur
 
@@ -105,7 +105,7 @@ Les ressources `project`, `task`, `comment` et `attachment` suivront le même mo
 
 ## 📌 TODO / Évolution
 
-- [ ] Corriger `create_table.sql` pour PostgreSQL
+- [x] Corriger `create_table.sql` pour PostgreSQL
 - [ ] Connexion à la base dans `app/database.js`
 - [ ] Routes et contrôleurs CRUD (`user`, `project`, `task`, `comment`, `attachment`)
 - [ ] Authentification JWT et mots de passe hashés (bcrypt)
