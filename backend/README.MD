@@ -12,7 +12,7 @@ La base de données est gérée avec des **scripts SQL écrits à la main** (pas
 API_REST/
 └── backend/
     ├── app/
-    │   ├── database.js        # Connexion à PostgreSQL (à écrire)
+    │   ├── database.js        # Connexion à PostgreSQL (pool pg)
     │   └── router.js          # Définition des routes (à écrire)
     ├── data/
     │   └── create_table.sql   # Script de création des tables
@@ -51,10 +51,15 @@ API_REST/
    npm install
    ```
 
-3. Créer un fichier `.env` dans `backend/` :
+3. Créer le fichier `.env` à partir du modèle, puis adapter `DATABASE_URL` :
+
+   ```bash
+   cp .env.example .env
+   ```
 
    ```env
    PORT=3000
+   DATABASE_URL=postgres://utilisateur:motdepasse@localhost:5432/api_rest
    ```
 
 ## 🗃️ Base de données
@@ -82,6 +87,8 @@ npm start      # lancement simple
 
 Le serveur tourne par défaut sur 📍 `http://localhost:3000` (modifiable avec `PORT` dans `.env`).
 
+Au démarrage, le serveur vérifie que la base répond. Si `DATABASE_URL` est absente ou si la base est injoignable, il affiche l'erreur et s'arrête.
+
 ## 🔌 Endpoints
 
 Aucun endpoint n'est encore disponible. Prévu pour la ressource `user` :
@@ -101,12 +108,13 @@ Les ressources `project`, `task`, `comment` et `attachment` suivront le même mo
 - [Node.js](https://nodejs.org/)
 - [Express 5](https://expressjs.com/)
 - [PostgreSQL](https://www.postgresql.org/) avec des scripts SQL écrits à la main
+- [node-postgres (`pg`)](https://node-postgres.com/) pour la connexion à la base
 - [dotenv](https://github.com/motdotla/dotenv) pour les variables d'environnement
 
 ## 📌 TODO / Évolution
 
 - [x] Corriger `create_table.sql` pour PostgreSQL
-- [ ] Connexion à la base dans `app/database.js`
+- [x] Connexion à la base dans `app/database.js`
 - [ ] Routes et contrôleurs CRUD (`user`, `project`, `task`, `comment`, `attachment`)
 - [ ] Authentification JWT et mots de passe hashés (bcrypt)
 - [ ] Tests (Jest, Supertest)
